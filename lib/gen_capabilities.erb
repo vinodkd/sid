@@ -1,0 +1,10 @@
+  <div class="capabilities">
+    <% 
+      root['capabilities'].each do |nfr|
+        if nfr.instance_of? Hash
+    %><div class='suggestion'><%=nfr['suggestion']%></div>
+    <% else 
+      %><div class='capability'><%=nfr%></div>
+    <%  end
+      end
+    %></div>

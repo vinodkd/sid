@@ -1,0 +1,23 @@
+  <div class="requires">
+    <% root['requires'].each_pair do |key,val|   # requires is always a hash 
+        case key
+           when 'defining'
+              if ctx.has_definition_tasks
+    %><div class="defining">
+    <%
+                val.each do |dtask|
+    %>  <div class="dtask"><%=dtask%></div>
+    <%        end # of do dtask 
+    %></div>
+    <%
+              end # of if has defn tasks
+           when 'using'%>
+            <%=val%>
+          <%when 'building'%>
+            <%=val%>
+          <%when 'suggestion'%>
+            <%=val%>
+        <%end  # of case
+      %>
+    <%end # req.each do%>
+  </div>
