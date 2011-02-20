@@ -1,4 +1,4 @@
 to-build:
-  - version: 1.0 
-  - name: test app
+  version: 1.0 
+  name: test app
   
