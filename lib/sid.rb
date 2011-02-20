@@ -6,35 +6,33 @@ module Sid
     def initialize(input_file, child = false)
       @child = child
       if !File.exists? input_file
-        puts "Error: #{input_file} doesnt exist"
-        exit
+        raise "#{input_file} doesnt exist"
       else
         @input_file = input_file
       end
     end
     
-    def process
+    def parse
       begin
         @spec = YAML::load(File.open(@input_file))
         @output = @spec.clone
-        
-      rescue TypeError => e
-        puts "Error processing #{@input_file}: #{e}"
-        return
+      rescue Exception => e
+        raise "#{@input_file} could not be parsed correctly: #{e}"
       end
-      
+    end
+    
+    def process
+      raise "parse input file first" if !@output
+
       root = @output['to-build']
       if !root
         @output['to-build'] = {'suggestion' => 'add an application to build'}
         return
-      elsif !root.instance_of? Hash
-        raise 'expected "to-build" to be a hash'
-      elsif !root['name']
-        raise 'app to-build should have a name'
-      elsif !root['version']
-        raise 'app to-build should have a version'
       end
-      
+      raise 'expected "to-build" to be a hash' if !root.instance_of? Hash
+      raise 'application to be built should have a name' if !root['name']
+      raise 'application to be built should have a version' if !root['version']
+
       if(!@child) 
         process_features root
         process_capabilities root
