@@ -1,0 +1,20 @@
+#! /usr/bin/env ruby
+
+# sid runner
+
+$:.<< './lib'   #add lib directory to path. This way sid can be run in non-gem mode as well.
+
+require "sid"
+
+def main
+    puts 'sid: describe your architecture'
+    puts "Usage: sid app-ver.sid" if ARGV.length < 1
+    sid_input = ARGV[0]
+
+    sid = Sid::Sid.new sid_input
+    sid.process
+    sid.generate
+end
+
+main
+
