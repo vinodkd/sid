@@ -1,8 +1,10 @@
 require 'yaml'
-require 'erb'
+require 'generate'
 
 module Sid
   class Sid
+    attr_reader :output, :has_components,:has_definition_tasks,:has_existing_components,:has_new_components, :has_architecture, :has_child_definiitons
+
     def initialize(input_file, child = false)
       @child = child
       if !File.exists? input_file
@@ -40,18 +42,13 @@ module Sid
       end
       process_required_components root
       process_child_components root
-      p @output
+      #p @output
     end
     
     def generate
       output_file = @input_file.sub '.sid', '.html' 
-      tloc = File.join(File.dirname(__FILE__),'sid.erb')
-      template = ERB.new(File.open(tloc).read(),nil,'<>')
-      
-      File.open(output_file,"w+") do |outfile|
-        outfile.puts template.result(binding)
-      end
-      
+      generator = Generator.new output_file,self
+      generator.generate
     end
     
     private
@@ -94,7 +91,7 @@ module Sid
     end
 
     def process_define_tasks(requires)
-      p requires
+      #p requires
       # TODO: figure out how to make a todo list with data here
       if !requires['defining']
         @has_definition_tasks = false
