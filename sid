@@ -2,7 +2,7 @@
 
 # sid runner
 
-$:.<< './lib'   #add lib directory to path. This way sid can be run in non-gem mode as well.
+$:.<< File.join(File.dirname(__FILE__),'./lib')   #add lib directory to path. This way sid can be run in non-gem mode as well.
 
 require "sid"
 
@@ -11,9 +11,15 @@ def main
     puts "Usage: sid app-ver.sid" if ARGV.length < 1
     sid_input = ARGV[0]
 
-    sid = Sid::Sid.new sid_input
-    sid.process
-    sid.generate
+    begin
+      sid = Sid::Sid.new sid_input
+      sid.parse
+      sid.process
+      sid.generate
+    rescue Exception => e
+      puts "Error occured while processing #{sid_input}: #{e}"
+      exit 1
+    end
 end
 
 main
