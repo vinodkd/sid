@@ -1,4 +1,5 @@
 require 'yaml'
+require 'erb'
 
 module Sid
   class Sid
@@ -22,78 +23,124 @@ module Sid
         return
       end
       
-      if !@spec['to-build']
-        @spec['to-build'] = {'suggestion' => 'add an application to build'}
+      root = @output['to-build']
+      if !root
+        @output['to-build'] = {'suggestion' => 'add an application to build'}
         return
+      elsif !root.instance_of? Hash
+        raise 'expected "to-build" to be a hash'
+      elsif !root['name']
+        raise 'app to-build should have a name'
+      elsif !root['version']
+        raise 'app to-build should have a version'
       end
       
       if(!@child) 
-        process_features
-        process_capabilities
-        process_architecture_definition
+        process_features root
+        process_capabilities root
+        process_architecture_definition root
       end
-      process_required_components
-      process_child_components
+      process_required_components root
+      process_child_components root
       p @output
     end
     
     def generate
+      output_file = @input_file.split('.')[0] + '.html' 
+      tloc = File.join(File.dirname(__FILE__),'sid.erb')
+      template = ERB.new(File.open(tloc).read(),nil,'<>')
+      
+      File.open(output_file,"w+") do |outfile|
+        outfile.puts template.result(binding)
+      end
+      
     end
     
     private
     
-    def process_features
-      if !@spec['to-build']['and-features'] and !@spec['to-build']['with-features']
-        @output['to-build']['with-features'] = {'suggestion'=> "add some features"} 
+    def process_features(root)
+      with_features = root['with-features']
+      and_features  = root['and-features']
+      if !and_features and !with_features
+        root['features'] = [{'suggestion' => 'add some features'}] 
+      elsif with_features
+        root['features']=with_features
+      elsif and_features
+        root['features']=and_features
       end
     end
 
-    def process_capabilities
-      if !(@spec['to-build']['and-capabilities'] or @spec['to-build']['with-capabilities'])
-        @output['to-build']['with-capabilities'] = {'suggestion' => "add some capabilities"} 
+    def process_capabilities(root)
+      with_capabilities = root['with-capabilities']
+      and_capabilities = root['and-capabilities']
+      if !(root['and-capabilities'] or root['with-capabilities'])
+        root['capabilities'] = [{'suggestion' => "add some capabilities"}] 
+      elsif with_capabilities
+        root['capabilities']=with_capabilities
+      elsif and_capabilities
+        root['capabilities']=and_capabilities
       end
     end
 
-    def process_required_components
-      if !@spec['to-build']['requires']
+    def process_required_components(root)
+      if !root['requires']
         @has_components = false
-        @output['to-build']['requires'] = {'suggestion' => "add some required components"} 
+        root['requires'] = {'suggestion' => "add some required components"} 
       else
         @has_components = true
-        process_define_tasks
-        process_using
-        process_building
       end
+      requires = root['requires']
+      process_define_tasks requires
+      process_using requires
+      process_building requires
     end
 
-    def process_define_tasks
+    def process_define_tasks(requires)
+      p requires
       # TODO: figure out how to make a todo list with data here
-    end
-    
-    def process_using
-      if @spec['to-build']['requires']['using']
-        # check that every child is a map
+      if !requires['defining']
+        @has_definition_tasks = false
+      else
+        @has_definition_tasks = true
       end
     end
     
-    def process_building
-      # put all found components to be built for use later.
-    end
-    def process_architecture_definition
-      if !@spec['to-build']['realizing-architecture']
-        @output['to-build']['realizing-architecture'] = {'suggestion' => "add an architecture diagram using dot format"} 
+    def process_using(requires)
+      if !requires['using']
+        @has_existing_components = false
+        # check that every child is a map
       else
-        process_arch_diagram
+        @has_existing_components = true
+      end
+    end
+    
+    def process_building(requires)
+      if !requires['building']
+        @has_new_components = false
+        # put all found components to be built for use later.
+      else
+        @has_new_components = true
+      end
+    end
+    def process_architecture_definition(root)
+      if !root['realizing-architecture']
+        @has_architecture = false
+        root['realizing-architecture'] = [{'suggestion' => "add an architecture diagram using dot format"}] 
+      else
+        @has_architecture = true
+        process_arch_diagram root['realizing-architecture']
       end
     end
 
-    def process_arch_diagram
+    def process_arch_diagram(arch)
     end
     
-    def process_child_components
-      if !@spec['to-build']['to-build'] and @has_components
-        @output['to-build']['to-build'] = {'suggestion' => "add definitions for declared components"} 
+    def process_child_components(root)
+      if !root['to-build'] and @has_components
+        @has_child_definiitons = false
+        root['to-build'] = [{'suggestion' => "add definitions for declared components"}] 
       else
+        @has_child_definiitons = false
         # check if the components listed here match the ones listed in the "building" section
         # call Sid.process on them with child=true
       end

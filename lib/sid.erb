@@ -1,0 +1,51 @@
+<% root = @output['to-build'] %>
+<html>
+<title>Say it does...<%=@output['to-build']['name']%>-<%=@output['to-build']['version']%></title>
+<body>
+  <div class="features">
+    <% 
+      root['features'].each do |f|
+        if f.instance_of? Hash
+    %><div class='suggestion'><%=f['suggestion']%></div>
+    <% else 
+      %><div class='feature'><%=f%></div>
+    <%  end
+      end
+    %></div>
+  
+  <div class="capabilities">
+    <% 
+      root['capabilities'].each do |nfr|
+        if nfr.instance_of? Hash
+    %><div class='suggestion'><%=nfr['suggestion']%></div>
+    <% else 
+      %><div class='capability'><%=nfr%></div>
+    <%  end
+      end
+    %></div>
+  
+  <div class="requires">
+    <% root['requires'].each_pair do |key,val|   # requires is always a hash 
+        case key
+           when 'defining'
+              if @has_definition_tasks
+    %><div class="defining">
+    <%
+                val.each do |dtask|
+    %>  <div class="dtask"><%=dtask%></div>
+    <%        end # of do dtask 
+    %></div>
+    <%
+              end # of if has defn tasks
+           when 'using'%>
+            <%=val%>
+          <%when 'building'%>
+            <%=val%>
+          <%when 'suggestion'%>
+            <%=val%>
+        <%end  # of case
+      %>
+    <%end # req.each do%>
+  </div>
+</body>
+</html>
