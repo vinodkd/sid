@@ -44,7 +44,7 @@ module Sid
     end
     
     def generate
-      output_file = @input_file.split('.')[0] + '.html' 
+      output_file = @input_file.sub '.sid', '.html' 
       tloc = File.join(File.dirname(__FILE__),'sid.erb')
       template = ERB.new(File.open(tloc).read(),nil,'<>')
       
