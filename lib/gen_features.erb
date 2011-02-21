@@ -1,10 +1,11 @@
-  <div class="features">
-    <% 
-      root['features'].each do |f|
-        if f.instance_of? Hash
-    %><div class='suggestion'><%=f['suggestion']%></div>
-    <% else 
-      %><div class='feature'><%=f%></div>
-    <%  end
-      end
-    %></div>
+<div class="features"><% 
+  root['features'].each do |f|
+  if f.instance_of? Hash
+    f.each_pair do |k,v|%>
+    <div class='<%=k%>'><%=v%></div>
+  <%end
+  else%>
+    <div class='feature'><%=f.gsub(/\n/,'<br/>')%></div><%
+  end 
+end %>
+  </div>

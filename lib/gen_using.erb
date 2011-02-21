@@ -1,0 +1,18 @@
+<%if ctx[:has_existing_components]
+%><div class="using">
+  <%using.each() do |ec1|
+    %>  <div class="existing_component">
+    <%ec1.each_pair() do |ck,cv|
+    %>    <span><%=ck%></span>
+      <%if cv.instance_of? Hash  # most likely a suggestion
+          cv.each_pair() do |k2,v2|
+    %>    <span style="<%=k2%>"><%=v2%></span>
+    <%    end
+      else
+    %>  <span><%=cv%></span>
+    <%end
+  end
+    %></div>
+  <%end
+  %></div>
+<%end%>

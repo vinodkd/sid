@@ -1,23 +1,15 @@
-  <div class="requires">
-    <% root['requires'].each_pair do |key,val|   # requires is always a hash 
-        case key
-           when 'defining'
-              if ctx.has_definition_tasks
-    %><div class="defining">
-    <%
-                val.each do |dtask|
-    %>  <div class="dtask"><%=dtask%></div>
-    <%        end # of do dtask 
-    %></div>
-    <%
-              end # of if has defn tasks
-           when 'using'%>
-            <%=val%>
-          <%when 'building'%>
-            <%=val%>
-          <%when 'suggestion'%>
-            <%=val%>
-        <%end  # of case
-      %>
-    <%end # req.each do%>
-  </div>
+<div class="requires">
+  <%
+  root['requires'].each_pair do |key,val|   # requires is always a hash 
+  case key
+    when 'defining'
+      %><%=gen_defining_tasks(val,ctx)%>
+    <%when 'using'
+      %><%=gen_using(val,ctx)%>
+    <%when 'building'
+      %><%=gen_building(val,ctx)%>
+    <%when 'suggestion'
+      %><div class='suggestion'><%=val%></div>
+    <%end %>
+  <%end 
+  %></div>

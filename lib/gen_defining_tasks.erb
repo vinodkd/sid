@@ -1,0 +1,6 @@
+<% if ctx[:has_definition_tasks] %>
+  <div class="defining"><%
+    val.each do |dtask|%>
+      <div class="dtask"><%=dtask%></div>
+    <%end %></div>
+<% end %>

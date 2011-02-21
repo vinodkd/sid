@@ -1,9 +1,9 @@
-<% root = @output.output['to-build'] %>
+<% root = @output['to-build'] %>
 <html>
 <title>Say it does...<%=root['name']%>-<%=root['version']%></title>
 <body>
   <%=gen_features root%>  
   <%=gen_capabilities root%>
-  <%=gen_requires root, @output %>
+  <%=gen_requires root, root %>
 </body>
 </html>
