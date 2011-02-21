@@ -1,10 +1,12 @@
 require 'erb'
+require 'fileutils'
 
 module Sid
   class Generator
     def initialize(output_file,output)
       @output_file = output_file
       @output = output
+      @gen_arch_img = (@output[:has_architecture])? true : false
       setup "gen_root()",'sid.erb'
       setup "gen_features(root)","gen_features.erb"
       setup "gen_capabilities(root)","gen_capabilities.erb"
@@ -27,12 +29,19 @@ module Sid
       File.open(@output_file,"w+") do |outfile|
         outfile.puts gen_root 
       end
-      gv_output_file = @output_file.sub '.html','.dot'
-      File.open(gv_output_file, "w+") do |gvfile|
-        gvfile.puts gen_arch_img @output
-      end
-      png_output_file = @output_file.sub '.html', '.png'
-      dot_done = `dot #{gv_output_file} | neato -n -s -Tpng -o#{png_output_file}`
+      
+      css_source_file = File.join(File.dirname(__FILE__),"sid.css")
+      css_output_file = File.join(File.dirname(@output_file),'sid.css')
+      FileUtils.cp css_source_file, css_output_file
+      
+      if @gen_arch_img
+        gv_output_file = @output_file.sub '.html','.dot'
+        File.open(gv_output_file, "w+") do |gvfile|
+          gvfile.puts gen_arch_img @output
+        end
+        png_output_file = @output_file.sub '.html', '.png'
+        dot_done = `dot #{gv_output_file} | neato -n -s -Tpng -o#{png_output_file}`
+      end      
     end
   end
 end
