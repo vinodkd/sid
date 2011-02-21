@@ -12,6 +12,8 @@ module Sid
       setup "gen_defining_tasks(val,ctx)","gen_defining_tasks.erb"
       setup "gen_using(using,ctx)","gen_using.erb"
       setup "gen_building(building,ctx)","gen_building.erb"
+      setup "gen_arch_lnk(ctx)","gen_arch_lnk.erb"
+      setup "gen_arch_img(root)","gen_arch_img.erb"
     end
     
     def setup(fn,erb_file)
@@ -25,6 +27,12 @@ module Sid
       File.open(@output_file,"w+") do |outfile|
         outfile.puts gen_root 
       end
+      gv_output_file = @output_file.sub '.html','.dot'
+      File.open(gv_output_file, "w+") do |gvfile|
+        gvfile.puts gen_arch_img @output
+      end
+      png_output_file = @output_file.sub '.html', '.png'
+      dot_done = `dot #{gv_output_file} | neato -n -s -Tpng -o#{png_output_file}`
     end
   end
 end
