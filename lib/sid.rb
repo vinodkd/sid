@@ -133,6 +133,7 @@ module Sid
         root['realizing-architecture'] = [{'suggestion' => "add an architecture diagram using dot format"}] 
       else
         root[:has_architecture] = true
+        root[:arch_ref] = @input_file.sub '.sid','.png'
         process_arch_diagram root['realizing-architecture']
       end
     end
