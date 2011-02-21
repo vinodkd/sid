@@ -15,7 +15,7 @@ to-build: &sid
                 - app architecture is defined, its children arent, and therefore the overall architecture is still to be completely defined
     and-capabilities:
         - &nf1 to run as a command line tool requiring no server
-        - &nf2 to output an html report with a corresponding svg for the architecture diagram
+        - &nf2 to output an html report with a corresponding png for the architecture diagram
     
     requires:
         defining:
