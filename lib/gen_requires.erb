@@ -1,4 +1,8 @@
 <div class="requires">
+  <div class="sidheader">
+    <span class="sidtext">Requires:</span>
+  </div>
+  <div class="sidbody">
   <%
   root['requires'].each_pair do |key,val|   # requires is always a hash 
   case key
@@ -12,4 +16,6 @@
       %><div class='suggestion'><%=val%></div>
     <%end %>
   <%end 
-  %></div>
+  %>
+</div>
+</div>

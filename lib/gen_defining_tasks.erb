@@ -1,6 +1,13 @@
 <% if ctx[:has_definition_tasks] %>
-  <div class="defining"><%
+<div class="defining">
+    <div class="sidheader">
+      <span class="sidtext">defining:</span>
+      </div>
+      <div class="sidbody">
+      <%
     val.each do |dtask|%>
-      <div class="dtask"><%=dtask%></div>
-    <%end %></div>
+        <div class="dtask"><%=dtask%></div>
+    <%end %>
+    </div>
+  </div>
 <% end %>

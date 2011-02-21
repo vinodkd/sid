@@ -1,18 +1,24 @@
 <%if ctx[:has_new_components]%>
 <div class="building">
+    <div class="sidheader">
+      <span class="sidtext">building:</span>
+      </div>
+      <div class="sidbody">
   <%building.each() do |bc1|
     %>  <div class="new_component">
     <%bc1.each_pair() do |bk,bv|
-    %>    <span><%=bk%></key>
+    %>    <a class="sidlink" href="#<%=bk%>"><span class="sidname"><%=bk%></span></a> : 
       <%if bv.instance_of? Hash  # most likely a suggestion
           bv.each_pair() do |k2,v2|
       %>  <span style="<%=k2%>"><%=v2%></span>
       <%  end%>
       <%else
-      %>  <span><%=bv%></span>
+      %>  <span class="siddesc"><%=bv%></span>
       <%end
       end
     %></div>
   <%end
-  %></div>
+  %>
+  </div>
+  </div>
 <%end%>

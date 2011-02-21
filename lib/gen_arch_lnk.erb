@@ -1,5 +1,10 @@
 <% if ctx[:has_architecture]%>
 <div class="arch">
-  <img src="<%=File.basename(ctx[:arch_ref])%>"/>
+    <div class="sidheader">
+      <span class="sidtext">to realize the architecture:</span>
+      </div>
+      <div class="sidbody">
+  <img class="archimg" src="<%=File.basename(ctx[:arch_ref])%>"/>
+  </div>
 </div>
 <%end%>

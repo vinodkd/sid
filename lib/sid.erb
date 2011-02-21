@@ -1,10 +1,26 @@
-<% root = @output['to-build'] %>
+<% 
+  root = @output['to-build'] 
+  appname = root['name']+ ' v ' + root['version'].to_s
+%>
 <html>
-<title>Say it does...<%=root['name']%>-<%=root['version']%></title>
-<body>
-  <%=gen_features root%>  
-  <%=gen_capabilities root%>
-  <%=gen_requires root, root%>
-  <%=gen_arch_lnk root%>
-</body>
+  <head>
+    <title>Sid spec for <%=appname%></title>
+    <link rel="stylesheet" type="text/css" href="sid.css"/>
+  </head>
+  <body>
+    <div class="banner">
+      <span class="sidtext">Sid spec for </span> <span class="appname"><%=appname%> </span>
+    </div>
+    <div class="spec">
+      <div class="sidheader">
+        <span class="sidtext">To build </span> <span "apptext"><%=appname%></span>
+      </div>
+      <div class="sidbody">
+        <%=gen_features root%>  
+        <%=gen_capabilities root%>
+        <%=gen_requires root, root%>
+        <%=gen_arch_lnk root%>
+      </div>
+    </div>
+  </body>
 </html>

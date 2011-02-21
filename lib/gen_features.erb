@@ -1,4 +1,9 @@
-<div class="features"><% 
+<div class="features">
+  <div class="sidheader">
+    <span class="sidtext">with features:</span>
+  </div>
+  <div class="sidbody">
+<% 
   root['features'].each do |f|
   if f.instance_of? Hash
     f.each_pair do |k,v|%>
@@ -8,4 +13,5 @@
     <div class='feature'><%=f.gsub(/\n/,'<br/>')%></div><%
   end 
 end %>
+  </div>
   </div>
