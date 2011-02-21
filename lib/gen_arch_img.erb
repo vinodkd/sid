@@ -1,0 +1,11 @@
+<%if !root[:has_architecture]%>
+digraph G{
+        node[shape=box style=rounded]
+        //compound=true
+        rankdir=TB
+        //outputMode=nodesfirst
+<% root['to-build']['realizing-architecture'].each() do |line|%>
+  <%=line%>
+<%end%>
+}
+<%end%>

@@ -1,0 +1,5 @@
+<% if ctx[:has_architecture]%>
+<div class="arch">
+  <img src="<%=File.basename(ctx[:arch_ref])%>"/>
+</div>
+<%end%>
