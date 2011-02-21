@@ -3,9 +3,9 @@ to-build: &sid
     version: 1.0
     with-features:
         - &f1 ability to define application architecture
-        - &f2 
-            feature: see report with gaps in architecture displayed
-            scenarios:
+        - &f2 |+
+            see report with gaps in architecture displayed
+            scenarios
                 - no features defined
                 - no capabilities defined
                 - no components defined at all

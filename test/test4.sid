@@ -1,0 +1,10 @@
+to-build:
+  version: 1.0 
+  name: test app
+  with-features:
+    - test feature 1
+    - test feature 2
+  with-capabilities:
+    - non functional 1
+    - non functiona 2
+    

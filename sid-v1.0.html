@@ -1,28 +1,55 @@
 <html>
 <title>Say it does...sid - an architecture description tool-1.0</title>
 <body>
-    <div class="features">
+  <div class="features">
     <div class='feature'>ability to define application architecture</div>
-    <div class='suggestion'></div>
-    </div>
+    <div class='feature'>see report with gaps in architecture displayed<br/>scenarios<br/>    - no features defined<br/>    - no capabilities defined<br/>    - no components defined at all<br/>    - no architecture defined<br/>    - no to-build spec defined for requires-building component<br/>    - app architecture is still to be completely defined<br/>    - app architecture is defined, its children arent, and therefore the overall architecture is still to be completely defined<br/></div>
+  </div>
   
-    <div class="capabilities">
+  <div class="capabilities">
     <div class='capability'>to run as a command line tool requiring no server</div>
     <div class='capability'>to output an html report with a corresponding svg for the architecture diagram</div>
-    </div>
+  </div>
 
-    <div class="requires">
+  <div class="requires">
     <div class="defining">
       <div class="dtask">the input syntax</div>
     </div>
+
     
-    
-            [{"parser"=>"a parser to read the input file"}, {"processor"=>"a processor to analyze the input file and generate the response"}, {"repgen"=>"report generator to emit the response"}]
-          
-    
-            [{"os"=>"any"}, {"language"=>"ruby"}, {"file-format"=>"yaml"}]
-          
+  <div class="building">
+    <div class="new_component">
+        <span>parser</key>
+        <span>a parser to read the input file</span>
       </div>
+    <div class="new_component">
+        <span>processor</key>
+        <span>a processor to analyze the input file and generate the response</span>
+      </div>
+    <div class="new_component">
+        <span>repgen</key>
+        <span>report generator to emit the response</span>
+      </div>
+  </div>
+
+    
+  <div class="using">
+    <div class="existing_component">
+        <span>os</span>
+        <span>any</span>
+    </div>
+    <div class="existing_component">
+        <span>language</span>
+        <span>ruby</span>
+    </div>
+    <div class="existing_component">
+        <span>file-format</span>
+        <span>yaml</span>
+    </div>
+  </div>
+
+    
+  </div>
 
 </body>
 </html>

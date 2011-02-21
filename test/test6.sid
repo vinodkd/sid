@@ -1,0 +1,14 @@
+# this is a spec with 2 capability sections of which the second one is ignored.
+to-build:
+  version: 1.0 
+  name: test app
+  with-features:
+    - test feature 1
+    - test feature 2
+  and-capabilities:
+    - non functional 1
+    - non functiona 2
+  with-capabilities:
+    - non functional 3
+    - non functiona 4
+    
