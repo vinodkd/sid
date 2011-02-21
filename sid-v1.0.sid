@@ -1,0 +1,48 @@
+to-build: &sid
+    name: sid - an architecture description tool
+    version: 1.0
+    with-features:
+        - &f1 ability to define application architecture
+        - &f2 |+
+            see report with gaps in architecture displayed
+            scenarios
+                - no features defined
+                - no capabilities defined
+                - no components defined at all
+                - no architecture defined
+                - no to-build spec defined for requires-building component
+                - app architecture is still to be completely defined
+                - app architecture is defined, its children arent, and therefore the overall architecture is still to be completely defined
+    and-capabilities:
+        - &nf1 to run as a command line tool requiring no server
+        - &nf2 to output an html report with a corresponding png for the architecture diagram
+    
+    requires:
+        defining:
+            - the input syntax
+        building:
+            - parser: a parser to read the input file
+            - processor: a processor to analyze the input file and generate the response
+            - repgen: report generator to emit the response
+        using:
+            - os: any
+            - language: ruby
+            - file-format: yaml # easy to parse
+    realizing-architecture:
+        - " parser -> processor -> repgen"
+    to-build:
+        - parser:
+            requires:
+                using:
+                    - yaml-parser: ruby's yaml parser
+        - processor:
+            requires:
+                building:
+                    - SidProcessor : a ruby class to process the input and annotate with suggestions/warnings
+        - repgen:
+                requires:
+                    building:
+                        - sid2html: an erb template
+                        - sidarch2dot: an erb template that outputs the architecture steps as a graphviz dot file.
+                        - dot2img: a component to convert dot file to svg/png
+                        - SidReporter: report generation code to output the erb templates, combine them all into usable html

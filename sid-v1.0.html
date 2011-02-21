@@ -1,0 +1,116 @@
+
+<html>
+  <head>
+    <title>Sid spec for sid - an architecture description tool v 1.0</title>
+    <link rel="stylesheet" type="text/css" href="sid.css"/>
+  </head>
+  <body>
+    <div class="banner">
+      <span class="sidtext">Sid spec for </span> <span class="appname">sid - an architecture description tool v 1.0 </span>
+    </div>
+    <div class="spec">
+      <div class="sidheader">
+        <span class="sidtext">To build </span> <span "apptext">sid - an architecture description tool v 1.0</span>
+      </div>
+      <div class="sidbody">
+        <div class="features">
+  <div class="sidheader">
+    <span class="sidtext">with features:</span>
+  </div>
+  <div class="sidbody">
+
+    <div class='feature'>ability to define application architecture</div>
+    <div class='feature'>see report with gaps in architecture displayed<br/>scenarios<br/>    - no features defined<br/>    - no capabilities defined<br/>    - no components defined at all<br/>    - no architecture defined<br/>    - no to-build spec defined for requires-building component<br/>    - app architecture is still to be completely defined<br/>    - app architecture is defined, its children arent, and therefore the overall architecture is still to be completely defined<br/></div>
+  </div>
+  </div>
+  
+        <div class="capabilities">
+  <div class="sidheader">
+    <span class="sidtext">with capabilities:</span>
+  </div>
+  <div class="sidbody">
+
+    <div class='capability'>to run as a command line tool requiring no server</div>
+    <div class='capability'>to output an html report with a corresponding png for the architecture diagram</div>
+</div>
+  </div>
+
+        <div class="requires">
+  <div class="sidheader">
+    <span class="sidtext">Requires:</span>
+  </div>
+  <div class="sidbody">
+  <div class="defining">
+    <div class="sidheader">
+      <span class="sidtext">defining:</span>
+      </div>
+      <div class="sidbody">
+      
+        <div class="dtask">the input syntax</div>
+    
+    </div>
+  </div>
+
+    
+  <div class="building">
+    <div class="sidheader">
+      <span class="sidtext">building:</span>
+      </div>
+      <div class="sidbody">
+    <div class="new_component">
+        <a class="sidlink" href="#parser"><span class="sidname">parser</span></a> : 
+        <span class="siddesc">a parser to read the input file</span>
+      </div>
+    <div class="new_component">
+        <a class="sidlink" href="#processor"><span class="sidname">processor</span></a> : 
+        <span class="siddesc">a processor to analyze the input file and generate the response</span>
+      </div>
+    <div class="new_component">
+        <a class="sidlink" href="#repgen"><span class="sidname">repgen</span></a> : 
+        <span class="siddesc">report generator to emit the response</span>
+      </div>
+  
+  </div>
+  </div>
+
+    
+  <div class="using">
+    <div class="sidheader">
+      <span class="sidtext">using:</span>
+      </div>
+      <div class="sidbody">
+
+    <div class="existing_component">
+        <span class="sidname">os :</span>
+        <span class="siddesc">any</span>
+    </div>
+    <div class="existing_component">
+        <span class="sidname">language :</span>
+        <span class="siddesc">ruby</span>
+    </div>
+    <div class="existing_component">
+        <span class="sidname">file-format :</span>
+        <span class="siddesc">yaml</span>
+    </div>
+  
+  </div>
+</div>
+
+    
+  
+</div>
+</div>
+
+        <div class="arch">
+    <div class="sidheader">
+      <span class="sidtext">to realize the architecture:</span>
+      </div>
+      <div class="sidbody">
+  <img class="archimg" src="sid-v1.0.png"/>
+  </div>
+</div>
+
+      </div>
+    </div>
+  </body>
+</html>
