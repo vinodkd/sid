@@ -13,9 +13,9 @@ def main
 
     begin
       sid = Sid::Sid.new sid_input
-      sid.parse
-      sid.process
-      sid.generate
+      input = sid.parse
+      ast   = sid.process input
+      sid.generate ast
     rescue Exception => e
       puts "Error occured while processing #{sid_input}: \n\texception: #{e}\n\ttrace: #{e.backtrace}"
       exit 1
