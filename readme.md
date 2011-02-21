@@ -28,6 +28,7 @@ Audience
 Samples
 -------
 Sid's own sid spec is available at the root. The source is sid-vxx.sid and the output is sid-vxx.html
+* note: the source file has more information than the display processes currently. That's the big open todo
 There are more samples in /test
 
 Getting Started
@@ -38,4 +39,7 @@ Getting Started
 * run
     sid yourapp.sid
     
+Todos:
+======
+* Add logic to display child component definitions
 
