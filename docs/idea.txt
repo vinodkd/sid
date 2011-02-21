@@ -97,3 +97,8 @@ to-build: appx
 Dogfood
 =======
 see sid-v*.sid
+
+Todos:
+======
+* Add css and explanatory text to html
+* Add logic to display child component definitions
