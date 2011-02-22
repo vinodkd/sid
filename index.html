@@ -1,0 +1,61 @@
+<div class="renderbox"><h1>Sid: Say its done..</h1>
+
+<p>Sid is a system that allows you to specify an application's architecture to the level you're comfortable, and then asks the question:</p>
+
+<p>"Ok, <strong>say all that's done</strong>, now...</p>
+
+<ul>
+<li>how is feature x going to implemented?"</li>
+<li>what goes into component x? Is is built? Or just used? Or bought?"</li>
+<li>how does the architecture look like?"</li>
+</ul>
+
+<p>it therefore servers as a documentation of architecture, and (much like BDD does for features) allows thinking about the architecture and jotting it down in a lightweight fashion.it also helps to validate some of the dependencies between aspects of architecture by allowing expression of those dependencies.</p>
+
+<p>Sid is, therefore:</p>
+
+<ul>
+<li>a file format to specify the early architecture of an app</li>
+<li>a tool that reads said file format and:
+<ul><li>displays it</li>
+<li>processes it to ask questions such as:</li>
+<li>what features does your application have? what capabilities?</li>
+<li>what logical componenents are required to meet those features and capabilities?</li>
+<li>how would the logical components fit together?</li>
+<li>how would you realize the logical components? what would you build and/or buy/reuse?</li></ul></li>
+<li>(future) a tool that consolidates accross multiple sid files and generates a project roadmap</li>
+<li>(future) a tool to extract out BDD-style feature definitions from the sid spec.</li>
+<li>(future) textmate bundle to make creating sid files easy</li>
+</ul>
+
+<h2>Audience</h2>
+
+<ul>
+<li>developers starting on their pet projects who want a bit of definition around their initial architecture thinking</li>
+<li>organizations that need a lightweight project description/validation tool</li>
+</ul>
+
+<h2>Samples</h2>
+
+<ul>
+<li>Sid's own sid spec is available <a href="sid-v1.0.html">at the root</a>. The source is sid-vxx.sid and the output is sid-vxx.html
+<ul><li>note: the source file has more information than the display processes currently. That's the big open todo</li></ul></li>
+<li>There are more samples in /test</li>
+</ul>
+
+<h2>Getting Started</h2>
+
+<ul>
+<li>install ruby</li>
+<li>download sid</li>
+<li>create a .sid file of your own</li>
+<li>run sid:
+<code>sid yourapp.sid</code></li>
+</ul>
+
+<h1>Todos:</h1>
+
+<ul>
+<li>Add logic to display child component definitions</li>
+</ul>
+</div>
