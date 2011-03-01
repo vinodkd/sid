@@ -1,0 +1,25 @@
+to build: teamcontrol
+version: 1.0
+with features:
+    f1: ability to define the work done by a team as a hierarchy of workstreams in a wiki page
+    f2: ability to connect to jira and capture progress of work on a regular basis
+    f3: ability to display the rolled up status of work for the team using the workstream hierarchy and jira data   preferably in the same wiki page
+and capabilities:
+    c1: runs as a shell script
+    c2: cronable, should run daily
+
+requires defining:
+    the format of the hierarchy description
+    how jira filters will be used to collect the data required by team control
+    the formulas for metrics to be collected to describe the progress
+    what to do with uncategorized work
+and using:
+    atlassian apis: jira and wikis soap or xml apis to connect and read/write data
+and building:
+    wiki reader: a component to read a page from the wiki
+    team def parser: a component to read the team definition and parse it
+    processor : a component to process the team definition read in join it with jira input to create a report
+    reporter: a component to pretty print the processed output and display it in a wiki
+    jira reader: a component to connect jira, and picks up the latest result for a given filter
+    wiki writer: a component to write a page (or its components) to the wiki
+            

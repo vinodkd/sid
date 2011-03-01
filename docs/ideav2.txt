@@ -1,0 +1,12 @@
+ideas for v2
+============
+- move to a more natural format as shown in newformat.yml
+- any node's content can be a hash or list
+- any node can have additional information as children. this should be globbed and available to the user as "text not understood by sid, but important to user".
+  - such text should be displayed in the html output
+- the presence of DONE in the text of any component will mark that component as architecturally complete. this doesnt apply for existing tools/products being used. it primarily applies to define tasks and building statements
+- if no outstanding TBDs are present, sid should display that the architecture is done.
+- expand the syntax to support enhancements to existing systems as well. Something along the lines of:
+    "to enhance appx ...rest of spec here" instead of "to build appx" should be sufficient
+- add a simpler dsl for the architecture diagram than straight dot syntax. Something along the lines of:
+    word1 actionwordorphrase word2 will convert it into the equivalent dot syntax: word1 -> word2 [label=actionwordorphrase]
