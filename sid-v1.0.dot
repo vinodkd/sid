@@ -1,7 +1,10 @@
 digraph G{
         node[shape=box style=rounded]
         //compound=true
-        rankdir=TB
+        rankdir=LR
         //outputMode=nodesfirst
-   parser -> processor -> repgen
+
+    parser -> processor [label="calls"]
+
+    processor -> repgen [label="calls"]
 }

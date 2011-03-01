@@ -29,7 +29,8 @@ to-build: &sid
             - language: ruby
             - file-format: yaml # easy to parse
     realizing-architecture:
-        - " parser -> processor -> repgen"
+        - parser calls processor
+        - processor calls repgen
     to-build:
         - parser:
             requires:
