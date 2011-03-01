@@ -21,9 +21,10 @@ module Sid
       end
     end
     
-    def process(output, child = false)
-      raise "parsed input file required" if !output
+    def process(input, child = false)
+      raise "parsed input file required" if !input
 
+      output=input.clone
       root = output['to-build']
       if !root
         output['to-build'] = {'suggestion' => 'add an application to build'}
@@ -40,7 +41,7 @@ module Sid
       end
       process_required_components root
       process_child_components root
-      output
+      return output
     end
     
     def generate(output)
@@ -143,7 +144,7 @@ module Sid
     end
     
     def process_child_components(root)
-      # ||to-build found? || components declared? || outcome
+      # ||to-build found? || components declared? || outcome ||
       # |     N           |       N               |   no action reqd
       # |     N           |       Y               |   suggest adding defns
       # |     Y           |       N               |   suggest adding decls
