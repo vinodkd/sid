@@ -6,7 +6,7 @@ module Sid
     def initialize(output_file,output)
       @output_file = output_file
       @output = output
-      @gen_arch_img = (@output[:has_architecture])? true : false
+      @gen_arch_img = (@output["to-build"][:has_architecture])? true : false
       setup "gen_root()",'sid.erb'
       setup "gen_features(root)","gen_features.erb"
       setup "gen_capabilities(root)","gen_capabilities.erb"
