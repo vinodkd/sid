@@ -2,10 +2,24 @@
 digraph G{
         node[shape=box style=rounded]
         //compound=true
-        rankdir=TB
+        rankdir=LR
         //outputMode=nodesfirst
-<% root['to-build']['realizing-architecture'].each() do |line|%>
-  <%=line%>
+<% root['to-build']['realizing-architecture'].each() do |line|
+  #  tried scan to allow for quoted strings. while this works here, yaml doesnt allow parts of an array entry being quoted. so reverting back to old split by space logic. g
+      #words = line.scan(/('.*?'|".*?"|\S+)/)
+      # scan returns an array of matched arrays, so each word must be got as the first element of each group found
+      #component1 = words[0][0]
+      #relation = words[1][0]
+      #component2 = words[2][0]
+      #ignore any more.
+      words = line.split
+      component1 = words[0]
+      relation = words[1]
+      component2 = words[2]
+      #ignore any more.
+      
+%>
+    <%=component1%> -> <%=component2%> [label="<%=relation%>"]
 <%end%>
 }
 <%end%>
