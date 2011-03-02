@@ -9,10 +9,10 @@ and capabilities:
     c2: cronable, should run daily
 
 requires defining:
-    the format of the hierarchy description
-    how jira filters will be used to collect the data required by team control
-    the formulas for metrics to be collected to describe the progress
-    what to do with uncategorized work
+    - the format of the hierarchy description
+    - how jira filters will be used to collect the data required by team control
+    - the formulas for metrics to be collected to describe the progress
+    - what to do with uncategorized work
 and using:
     atlassian apis: jira and wikis soap or xml apis to connect and read/write data
 and building:
