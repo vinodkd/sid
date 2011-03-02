@@ -6,12 +6,15 @@
 body {
   font-family: "Helvetica Neue Light","Lucida Grande","Calibri","Arial",sans-serif;
   -moz-box-shadow: 2px 2px 3px #888888;
+  -webkit-box-shadow: 2px 2px 3px #888888;
+  box-shadow: 2px 2px 3px #888888;
 }
 .banner {
     background-color: #AAAAFF;
     color: #330033;
     padding: 5px;
     -moz-border-radius: 7px 7px 0px 0px;
+    -webkit-border-radius: 7px 7px 0px 0px;
     border-radius:7px 7px 0px 0px;
     font-size:20;
 }
@@ -54,10 +57,14 @@ body {
 .suggestion{
   background-color: lightgreen;
   -moz-box-shadow: 2px 2px 3px #888888;
+  -webkit-box-shadow: 2px 2px 3px #888888;
+  box-shadow: 2px 2px 3px #888888;
   padding: 2px;
 }
 
 .archimg{
   -moz-box-shadow: 2px 2px 3px #888888;
+  -webkit-box-shadow: 2px 2px 3px #888888;
+  box-shadow: 2px 2px 3px #888888;
   padding: 2px;
 }
