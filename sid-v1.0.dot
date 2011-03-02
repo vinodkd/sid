@@ -1,10 +1,11 @@
 digraph G{
-        node[shape=box style=rounded]
+        node[shape=box style="rounded,filled" fontname=Sans fillcolor="#ccccff"]  //i'm terrible partial to to perrywinkle blue ;)
         //compound=true
-        rankdir=LR
+        //rankdir=LR
         //outputMode=nodesfirst
-
-    parser -> processor [label="calls"]
-
-    processor -> repgen [label="calls"]
+        
+    parser -> processor [label="calls",color=gray, fontname=Sans fontsize="10"]
+    
+    processor -> repgen [label="calls",color=gray, fontname=Sans fontsize="10"]
+    
 }
