@@ -10,3 +10,6 @@ ideas for v2
     "to enhance appx ...rest of spec here" instead of "to build appx" should be sufficient
 - add a simpler dsl for the architecture diagram than straight dot syntax. Something along the lines of:
     word1 actionwordorphrase word2 will convert it into the equivalent dot syntax: word1 -> word2 [label=actionwordorphrase]
+    
+- add support to represent refactoring. something along the lines of:
+"to refactor appx change componentx to <<do/not do y>>" and this would pick up the arch diagram, and show the deltas somehow
