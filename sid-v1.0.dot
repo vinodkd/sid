@@ -5,7 +5,7 @@ digraph G{
         //outputMode=nodesfirst
         
     parser -> processor [label="calls",color=gray, fontname=Sans fontsize="10"]
-    
+      
     processor -> repgen [label="calls",color=gray, fontname=Sans fontsize="10"]
-    
+      
 }
