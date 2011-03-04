@@ -19,7 +19,7 @@ def main
       sid.generate ast
       puts "done."
     rescue Exception => e
-      puts "Error occured while processing #{sid_input}: \n\texception: #{e}\n\ttrace: #{e.backtrace}"
+      puts "\nError occured while processing #{sid_input}: \n\texception: #{e}\n\ttrace: #{e.backtrace}"
       exit 1
     end
 end
