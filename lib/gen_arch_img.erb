@@ -9,7 +9,8 @@ digraph G{
         
         layers = (arch.class == Hash and arch.has_key? 'layers') ? arch['layers'] : nil
         relations = (arch.class == Hash and arch.has_key? 'relations') ? arch['relations'] : arch
-
+        relations = nil if relations.class == Hash 
+        
         # output the layers themselves to setup the hierarchy
         if layers
         %>
@@ -30,7 +31,7 @@ digraph G{
         # now output the actual components in the layers. the presence of the lname node "anchors" the other components in the same rank to that level in the display
         # calculate a random color, but make it so that multiple runs will produce the same colors so there's no refresh shock upon viewing
         srand(layers.length)  #make it dependent on the number of layers
-        alpha = 'cc'
+        alpha = 'bb'
         layers.each_index do |i|
           color = '#'
           6.times do|c|
@@ -44,29 +45,30 @@ digraph G{
         %>
         {
           node[fillcolor="<%=color%>"]
-          rank=same;<%=lname%>[color="<%=color%>" fillcolor="<%=color%>"];<%=components.join(';')%>
+          // layer name's color needs to be overridden here else the top level color will inherit.
+          rank=same;<%=lname%>[color=none fontcolor="<%=color%>" fillcolor=none];<%=components.join(';')%>
         };
         <%    
           end
         end 
       end #if layers
       
-      relations.each do |line|
-  #  tried scan to allow for quoted strings. while this works here, yaml doesnt allow parts of an array entry being quoted. so reverting back to old split by space logic. g
-      #words = line.scan(/('.*?'|".*?"|\S+)/)
-      # scan returns an array of matched arrays, so each word must be got as the first element of each group found
-      #component1 = words[0][0]
-      #relation = words[1][0]
-      #component2 = words[2][0]
-      #ignore any more.
-      words = line.split
-      component1 = words[0]
-      relation = words[1]
-      component2 = words[2]
-      #ignore any more.
+        relations.each do |line|
+        #tried scan to allow for quoted strings. while this works here, yaml doesnt allow parts of an array entry being quoted. so reverting back to old split by space logic. g
+        #words = line.scan(/('.*?'|".*?"|\S+)/)
+        # scan returns an array of matched arrays, so each word must be got as the first element of each group found
+        #component1 = words[0][0]
+        #relation = words[1][0]
+        #component2 = words[2][0]
+        #ignore any more.
+        words = line.split
+        component1 = words[0]
+        relation = words[1]
+        component2 = words[2]
+        #ignore any more.
       
 %>
     <%=component1%> -> <%=component2%> [label="<%=relation%>",color=gray, fontname=Sans fontsize="10"]
-    <%end%>
+      <%end if relations%>
 }
 <%end%>
