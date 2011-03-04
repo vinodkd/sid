@@ -3,9 +3,13 @@ require 'generate'
 
 module Sid
   class Sid
+    @@FILE_SUFFIX = '.arch'
+    
     def initialize(input_file)
       if !File.exists? input_file
         raise "#{input_file} doesnt exist"
+      elsif !input_file.downcase.end_with? @@FILE_SUFFIX
+        raise "#{input_file} should have \'#{@@FILE_SUFFIX}\' as suffix"
       else
         @input_file = input_file
       end
@@ -45,7 +49,7 @@ module Sid
     end
     
     def generate(output)
-      output_file = @input_file.sub '.sid', '.html' 
+      output_file = @input_file.sub @@FILE_SUFFIX, '.html' 
       generator = Generator.new output_file,output
       generator.generate 
     end
