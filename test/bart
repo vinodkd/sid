@@ -1,0 +1,157 @@
+#!/usr/bin/sh
+
+# bart: the Bash-based Application Rapid Tester.
+# a simple test harness for command line apps
+
+source inputs
+
+function main()
+{
+    local executable=$1
+		
+		bart_banner
+		
+    getinputs
+		if [[ $? -ne 0 ]]; then
+			echo Error processing inputs. exiting
+			exit 1
+		fi
+
+		if [[ ${#INPUTS[*]} -le 0 ]]; then
+			echo no inputs found. exiting
+			exit 1
+		fi
+
+		if [[ -z $executable ]]; then
+			echo please provide both an executable or "quoted command" to run
+			echo "Usage: bart <executable>"
+			exit 2
+		fi
+
+		echo ${INPUTS[*]}
+
+		for inp in ${INPUTS[*]}; do
+			setup
+			
+			OUTCOME=
+      echo Running: $executable $inp
+			$executable $inp
+      ret=$?
+      
+      check_for_expected $executable $inp
+      if [[ ! $OUTCOME ]]; then
+        ask_and_add_result $executable $inp $ret
+      fi
+			#echo outcome:$OUTCOME
+			# outcome is set by either check_for_expected or ask_and_add_result
+			print_outcome $executable $inp $ret $OUTCOME
+      store_for_summary $executable $inp $ret $OUTCOME
+			
+			teardown
+    done
+    print_summary $executable
+}
+
+function bart_banner()
+{
+	echo
+	echo -e "\033[1;31mba\033[1;32mrt\033[0m started." 
+
+}
+function check_for_expected()
+{
+  local executable=$1
+  local inp=$2
+
+  EXPECTED_RET=
+
+  if [ ! -e expected_results.tsv ]; then
+    touch expected_results.tsv
+  fi
+  # find previous result
+  prev=`grep "$executable $inp" expected_results.tsv`
+  #echo previous result line: $prev
+  if [[ ! $prev ]]; then
+    return
+  fi
+  
+  EXPECTED_RET=`echo "$prev" | cut -f2`
+  #echo expected result: $EXPECTED_RET
+  if [[ $EXPECTED_RET -eq $ret ]]; then
+  	OUTCOME=PASSED
+  else
+  	OUTCOME=FAILED
+  fi
+}
+
+function ask_and_add_result()
+{
+	local executable=$1
+  local inp=$2
+  local ret=$3
+
+	if [[ $ret -eq 127 ]]; then
+		echo "Ran command: \"$executable $inp\", which failed. Do you want to continue with the next run(c) or quit(q)?"
+	  read ans_proceed	# add -n1 to make it an instant response
+	  if [ $ans_proceed != "c" -o $ans_proceed != "C" ]; then
+			exit 3	# TODO: fix this to skip this iteration, not the whole process.
+		fi
+	fi
+	echo
+  echo "Ran command: \"$executable $inp\", which returned: $ret. Is this the expected result (y/n)?"
+  read answer	# add -n1 to make it an instant response
+  if [ $answer == "y" -o $answer == "Y" ]; then
+		#careful with the line below. There's supposed to be a tab between the command and the return value. Some editors convert tabs to spaces.
+    echo "$executable $inp	$ret" >> expected_results.tsv
+		OUTCOME=PASSED
+		return
+  fi
+	OUTCOME=FAILED
+}
+
+#global arrays used to hold results for summary display
+EXECUTIONS=(  )
+RETURNVALUES=(  )
+OUTCOMES=(  )
+
+function print_outcome()
+{
+    local executable=$1
+		local input=$2
+		local ret=$3
+    local outcome=$4
+
+		case $outcome in
+			PASSED )
+				outcome_str="\033[0;32mPASSED\033[0m"
+				;;
+			FAILED )
+				outcome_str="\033[0;31mFAILED\033[0m"
+				;;
+		esac
+    echo -e "execution: \"$executable $input\", return: $ret, outcome: $outcome_str"
+}
+
+function store_for_summary()
+{
+  EXECUTIONS[${#EXECUTIONS[@]}]="$1	$2"
+  RETURNVALUES[${#RETURNVALUES[@]}]="$3"
+  OUTCOMES[${#OUTCOMES[@]}]="$4"
+
+}
+
+function print_summary()
+{
+	local executable=$1
+	
+	echo
+	echo -e "\033[1;31mba\033[1;32mrt\033[0m summary for runs of \"$executable\" :"
+  count=${#EXECUTIONS[@]}
+  i=0
+  while [ $i -lt $count ]
+  do
+      print_outcome ${EXECUTIONS[$i]} ${RETURNVALUES[$i]} ${OUTCOMES[$i]}
+      let "i = $i + 1"
+  done
+}
+main $*
