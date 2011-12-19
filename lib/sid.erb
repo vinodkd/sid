@@ -1,5 +1,5 @@
 <% 
-  root = @output['to-build'] 
+  root = root['to-build'] 
   appname = root['name']+ ' v ' + root['version'].to_s
 %>
 <html>
@@ -20,6 +20,7 @@
         <%=gen_capabilities root%>
         <%=gen_requires root, root%>
         <%=gen_arch_lnk root%>
+        <%=gen_children root['to-build']%>
       </div>
     </div>
   </body>

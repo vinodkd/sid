@@ -25,7 +25,7 @@ module Sid
       end
     end
     
-    def process(input, child = false)
+    def process(input)
       raise "parsed input file required" if !input
 
       output=input.clone
@@ -38,11 +38,9 @@ module Sid
       raise 'application to be built should have a name' if !root['name']
       raise 'application to be built should have a version' if !root['version']
 
-      if(!child) 
-        process_features root
-        process_capabilities root
-        process_architecture_definition root
-      end
+      process_features root
+      process_capabilities root
+      process_architecture_definition root
       process_required_components root
       process_child_components root
       return output
@@ -126,7 +124,7 @@ module Sid
           if !c.instance_of? Hash
             c = {c => {'suggestion'=> "define this component"}}
           else
-            root[:new_components][c] = false  # ie, add the component, and false => we've not yet validated its defn yet.
+            root[:new_components][c.keys[0]] = false  # ie, add the component, and false => we've not yet validated its defn yet.
           end
         end
       end
@@ -166,11 +164,14 @@ module Sid
       else
         # check if the components listed here match the ones listed in the "building" section
         root['to-build'].each do | child|
-          if !root[:new_components].has_key? child # this is not a declared component
-            child['suggestion']="this component is not defined above. Should it be?"
-          end
-          root[:new_components][child]=true
-          # TODO: call Sid.process on them with child=true
+          child.each do |key,val|
+            if !root[:new_components].has_key? key # this is not a declared component
+              val ['suggestion']="#{key} component is not defined above. Should it be?"
+            end
+            root[:new_components][key]=true
+            # TODO: call Sid.process on them with child=true
+            process_required_components val
+          end 
         end
         # now deal with components declared, but not defined
         root[:new_components].each_pair() do |k,v|

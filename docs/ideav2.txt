@@ -13,3 +13,13 @@ ideas for v2
     
 - add support to represent refactoring. something along the lines of:
 "to refactor appx change componentx to <<do/not do y>>" and this would pick up the arch diagram, and show the deltas somehow
+
+refactor idea:
+==============
+refactor the code such that the entire generation of html is ypath and plugin based.
+The core loop would go through the document in order, generate a ypath for each element, and look for a plugin registered for that ypath.
+each plugin would know how to deal with just that kind of element and the total output would be the html output
+there will, of course, be default plugins for hashes and arrays so that unknown ypaths will be printed (or not)
+there will also be default implementations for suggestions.
+
+other refactoring required: move all true "model" changes to the ast layer. the generate layer should know only about values set to it, not parse the source again as it does now.

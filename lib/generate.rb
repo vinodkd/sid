@@ -7,7 +7,7 @@ module Sid
       @output_file = output_file
       @output = output
       @gen_arch_img = (@output["to-build"][:has_architecture])? true : false
-      setup "gen_root()",'sid.erb'
+      setup "gen_root(root)",'sid.erb'
       setup "gen_features(root)","gen_features.erb"
       setup "gen_capabilities(root)","gen_capabilities.erb"
       setup "gen_requires(root,ctx)","gen_requires.erb"
@@ -16,6 +16,7 @@ module Sid
       setup "gen_building(building,ctx)","gen_building.erb"
       setup "gen_arch_lnk(ctx)","gen_arch_lnk.erb"
       setup "gen_arch_img(root)","gen_arch_img.erb"
+      setup "gen_children(root)","gen_children.erb"
     end
     
     def setup(fn,erb_file)
@@ -27,7 +28,7 @@ module Sid
     
     def generate
       File.open(@output_file,"w+") do |outfile|
-        outfile.puts gen_root 
+        outfile.puts gen_root @output
       end
       
       css_source_file = File.join(File.dirname(__FILE__),"sid.css")
