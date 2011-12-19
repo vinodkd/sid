@@ -1,0 +1,16 @@
+<% root.each do |child| %>
+  <div class="to_build_children">
+<%  child.each_pair do |key,val| %>
+    <div class="sidheader">
+      <span id="<%=key%>"><%=key%></span>
+    </div>
+    <div class="sidbody">
+    <%if key=='suggestion'%>
+      <div class='suggestion'><%=val%></div>
+    <%else%>
+      <div><%=gen_requires(val,val)%></div>
+    <%end%>
+    </div>
+<%  end %>
+  </div>
+<%end%>
