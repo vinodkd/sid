@@ -1,6 +1,6 @@
 to-build: &sid
     name: sid - an architecture description tool
-    version: 1.0
+    version: 2.0
     with-features:
         - &f1 ability to define application architecture
         - &f2 |+
@@ -12,25 +12,34 @@ to-build: &sid
                 - no architecture defined
                 - no to-build spec defined for requires-building component
                 - app architecture is still to be completely defined
-                - app architecture is defined, its children arent, and therefore the overall architecture is still to be completely defined
+        - app architecture is defined, its children arent, and therefore the overall architecture is still to be completely defined
     and-capabilities:
         - &nf1 to run as a command line tool requiring no server
         - &nf2 to output an html report with a corresponding png for the architecture diagram
+        - &nf3 to use the new natural syntax depicted in ideav2.txt
+        - &nf4 to use the new plugin architecture. This will be a departure from v1 as the plugin will contain the rules to identify an input element as well as the report generation logic for it.
+        - &nf4 to explicitly state a "front matter" version number for the arch file itself to distinguish from v1. v2 will be backwards compatible with v1.
     
     requires:
         defining:
-            - the input syntax
+            - the new input syntax - DONE
+            - the plugin design
         building:
-            - parser: a parser to read the input file
-            - processor: a processor to analyze the input file and generate the response
-            - repgen: report generator to emit the response
+            - parser: a parser to read the input file and convert to base yaml tree.
+            - processor: a processor to traverse the tree and call appropriate plugins to handle specific nodes
+            - plugins to generate the output tree
+            - generator: report generator to 
         using:
             - os: any
             - language: ruby
             - file-format: yaml # easy to parse
     realizing-architecture:
-        - parser calls processor
-        - processor calls repgen
+            - runner calls parser
+            - runner calls processor
+            - runner calls generator
+            - processor calls plugin
+            - generator calls plugin
+            
     to-build:
         - parser:
             requires:
@@ -39,7 +48,8 @@ to-build: &sid
         - processor:
             requires:
                 building:
-                    - SidProcessor : a ruby class to process the input and annotate with suggestions/warnings
+                    - SidProcessor : a ruby class to match input elements/ypaths to plugins
+                    - Plugins : to process the input and annotate with suggestions/warnings and provide generation templates. the plugin therefore has two operations: a parse and a generate one
         - repgen:
                 requires:
                     building:
