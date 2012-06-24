@@ -1,0 +1,250 @@
+
+<html>
+  <head>
+    <title>Sid spec for sid - an architecture description tool v 2.0</title>
+    <link rel="stylesheet" type="text/css" href="sid.css"/>
+  </head>
+  <body>
+    <div class="banner">
+      <span class="sidtext">Sid spec for </span> <span class="appname">sid - an architecture description tool v 2.0 </span>
+    </div>
+    <div class="spec">
+      <div class="sidheader">
+        <span class="sidtext">To build </span> <span "apptext">sid - an architecture description tool v 2.0</span>
+      </div>
+      <div class="sidbody">
+        <div class="features">
+  <div class="sidheader">
+    <span class="sidtext">with features:</span>
+  </div>
+  <div class="sidbody">
+
+    <div class='feature'>ability to define application architecture</div>
+    <div class='feature'>see report with gaps in architecture displayed<br/>scenarios<br/>    - no features defined<br/>    - no capabilities defined<br/>    - no components defined at all<br/>    - no architecture defined<br/>    - no to-build spec defined for requires-building component<br/>    - app architecture is still to be completely defined<br/></div>
+    <div class='feature'>app architecture is defined, its children arent, and therefore the overall architecture is still to be completely defined</div>
+  </div>
+  </div>
+  
+        <div class="capabilities">
+  <div class="sidheader">
+    <span class="sidtext">with capabilities:</span>
+  </div>
+  <div class="sidbody">
+
+    <div class='capability'>to run as a command line tool requiring no server</div>
+    <div class='capability'>to output an html report with a corresponding png for the architecture diagram</div>
+    <div class='capability'>to use the new natural syntax depicted in ideav2.txt</div>
+    <div class='capability'>to use the new plugin architecture. This will be a departure from v1 as the plugin will contain the rules to identify an input element as well as the report generation logic for it.</div>
+    <div class='capability'>to explicitly state a "front matter" version number for the arch file itself to distinguish from v1. v2 will be backwards compatible with v1.</div>
+</div>
+  </div>
+
+        <div class="requires">
+  <div class="sidheader">
+    <span class="sidtext">Requires:</span>
+  </div>
+  <div class="sidbody">
+  <div class="building">
+    <div class="sidheader">
+      <span class="sidtext">building:</span>
+      </div>
+      <div class="sidbody">
+    <div class="new_component">
+        <a class="sidlink" href="#parser"><span class="sidname">parser</span></a> : 
+        <span class="siddesc">a parser to read the input file and convert to base yaml tree.</span>
+      </div>
+    <div class="new_component">
+        <a class="sidlink" href="#processor"><span class="sidname">processor</span></a> : 
+        <span class="siddesc">a processor to traverse the tree and call appropriate plugins to handle specific nodes</span>
+      </div>
+    <div class="new_component">
+        <a class="sidlink" href="#plugins"><span class="sidname">plugins</span></a> : 
+        <span class="siddesc">to generate the output tree</span>
+      </div>
+    <div class="new_component">
+        <a class="sidlink" href="#generator"><span class="sidname">generator</span></a> : 
+        <span class="siddesc">report generator to</span>
+      </div>
+  
+  </div>
+  </div>
+
+    
+  <div class="defining">
+    <div class="sidheader">
+      <span class="sidtext">defining:</span>
+      </div>
+      <div class="sidbody">
+      
+        <div class="dtask">the new input syntax - DONE</div>
+    
+        <div class="dtask">the plugin design</div>
+    
+    </div>
+  </div>
+
+    
+  <div class="using">
+    <div class="sidheader">
+      <span class="sidtext">using:</span>
+      </div>
+      <div class="sidbody">
+
+    <div class="existing_component">
+        <span class="sidname">os :</span>
+        <span class="siddesc">any</span>
+    </div>
+    <div class="existing_component">
+        <span class="sidname">language :</span>
+        <span class="siddesc">ruby</span>
+    </div>
+    <div class="existing_component">
+        <span class="sidname">file-format :</span>
+        <span class="siddesc">yaml</span>
+    </div>
+  
+  </div>
+</div>
+
+    
+  
+</div>
+</div>
+
+        <div class="arch">
+    <div class="sidheader">
+      <span class="sidtext">to realize the architecture:</span>
+      </div>
+      <div class="sidbody">
+  <img class="archimg" src="sid.png"/>
+  </div>
+</div>
+
+          <div class="to_build_children">
+    <div class="sidheader">
+      <span id="parser">parser</span>
+    </div>
+    <div class="sidbody">
+    
+      <div><div class="requires">
+  <div class="sidheader">
+    <span class="sidtext">Requires:</span>
+  </div>
+  <div class="sidbody">
+  <div class="using">
+    <div class="sidheader">
+      <span class="sidtext">using:</span>
+      </div>
+      <div class="sidbody">
+
+    <div class="existing_component">
+        <span class="sidname">yaml-parser :</span>
+        <span class="siddesc">ruby's yaml parser</span>
+    </div>
+  
+  </div>
+</div>
+
+    
+  
+</div>
+</div>
+</div>
+    
+    </div>
+  </div>
+  <div class="to_build_children">
+    <div class="sidheader">
+      <span id="processor">processor</span>
+    </div>
+    <div class="sidbody">
+    
+      <div><div class="requires">
+  <div class="sidheader">
+    <span class="sidtext">Requires:</span>
+  </div>
+  <div class="sidbody">
+  <div class="building">
+    <div class="sidheader">
+      <span class="sidtext">building:</span>
+      </div>
+      <div class="sidbody">
+    <div class="new_component">
+        <a class="sidlink" href="#SidProcessor"><span class="sidname">SidProcessor</span></a> : 
+        <span class="siddesc">a ruby class to match input elements/ypaths to plugins</span>
+      </div>
+    <div class="new_component">
+        <a class="sidlink" href="#plugins"><span class="sidname">plugins</span></a> : 
+        <span class="siddesc">to process the input and annotate with suggestions/warnings and provide generation templates. the plugin therefore has two operations - a parse and a generate one.</span>
+      </div>
+  
+  </div>
+  </div>
+
+    
+  
+</div>
+</div>
+</div>
+    
+    </div>
+  </div>
+  <div class="to_build_children">
+    <div class="sidheader">
+      <span id="generator">generator</span>
+    </div>
+    <div class="sidbody">
+    
+      <div><div class="requires">
+  <div class="sidheader">
+    <span class="sidtext">Requires:</span>
+  </div>
+  <div class="sidbody">
+  <div class="building">
+    <div class="sidheader">
+      <span class="sidtext">building:</span>
+      </div>
+      <div class="sidbody">
+    <div class="new_component">
+        <a class="sidlink" href="#sid2html"><span class="sidname">sid2html</span></a> : 
+        <span class="siddesc">an erb template</span>
+      </div>
+    <div class="new_component">
+        <a class="sidlink" href="#sidarch2dot"><span class="sidname">sidarch2dot</span></a> : 
+        <span class="siddesc">an erb template that outputs the architecture steps as a graphviz dot file.</span>
+      </div>
+    <div class="new_component">
+        <a class="sidlink" href="#dot2img"><span class="sidname">dot2img</span></a> : 
+        <span class="siddesc">a component to convert dot file to svg/png</span>
+      </div>
+    <div class="new_component">
+        <a class="sidlink" href="#SidReporter"><span class="sidname">SidReporter</span></a> : 
+        <span class="siddesc">report generation code to output the erb templates, combine them all into usable html</span>
+      </div>
+  
+  </div>
+  </div>
+
+    
+  
+</div>
+</div>
+</div>
+    
+    </div>
+  </div>
+  <div class="to_build_children">
+    <div class="sidheader">
+      <span id="suggestion">suggestion</span>
+    </div>
+    <div class="sidbody">
+    
+      <div class='suggestion'>plugins is declared, but not defined. Do you want to?</div>
+    
+    </div>
+  </div>
+
+      </div>
+    </div>
+  </body>
+</html>
