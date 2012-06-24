@@ -18,7 +18,8 @@ to-build: &sid
         - &nf2 to output an html report with a corresponding png for the architecture diagram
         - &nf3 to use the new natural syntax depicted in ideav2.txt
         - &nf4 to use the new plugin architecture. This will be a departure from v1 as the plugin will contain the rules to identify an input element as well as the report generation logic for it.
-        - &nf4 to explicitly state a "front matter" version number for the arch file itself to distinguish from v1. v2 will be backwards compatible with v1.
+        - &nf4 to explicitly state a "front matter" version number for the arch file itself to distinguish from v1. 
+        - &nf5 v2 will be backwards compatible with v1.
     
     requires:
         defining:
@@ -27,7 +28,7 @@ to-build: &sid
         building:
             - parser: a parser to read the input file and convert to base yaml tree.
             - processor: a processor to traverse the tree and call appropriate plugins to handle specific nodes
-            - plugins to generate the output tree
+            - plugins: to generate the output tree
             - generator: report generator to 
         using:
             - os: any
@@ -49,8 +50,8 @@ to-build: &sid
             requires:
                 building:
                     - SidProcessor : a ruby class to match input elements/ypaths to plugins
-                    - Plugins : to process the input and annotate with suggestions/warnings and provide generation templates. the plugin therefore has two operations: a parse and a generate one
-        - repgen:
+                    - plugins: to process the input and annotate with suggestions/warnings and provide generation templates. the plugin therefore has two operations - a parse and a generate one.
+        - generator:
                 requires:
                     building:
                         - sid2html: an erb template
