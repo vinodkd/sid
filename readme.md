@@ -31,7 +31,7 @@ Audience
 
 Samples
 -------
-* Sid's own sid spec is available at the root. The source is sid-vxx.sid and the output is sid-vxx.html
+* Sid's own sid spec is available in the `dogfood` folder. The source is sid-vxx.arch and the output is sid-vxx.html
    * note: the source file has more information than the display processes currently. That's the big open todo
 * There are more samples in /test
 
@@ -39,9 +39,9 @@ Getting Started
 ---------------
 * install ruby
 * download sid
-* create a .sid file of your own
+* create a .arch file of your own
 * run sid:
-    `sid yourapp.sid`
+    `sid yourapp.arch`
     
 Todos:
 ======
