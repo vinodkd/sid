@@ -1,14 +1,14 @@
-function getinputs()
+function set_testdata()
 {
   declare -a dirs
-  dirs=( . .. )
+  dirs=( . )
   local i=0
   for dir in ${dirs[*]}
   do
     # the ? prevents pickup of the sid script itself
     for script in $dir/*arch
     do
-      INPUTS[$i]=$script
+      TEST_DATA[$i]=$script
       let "i = $i + 1"
     done
   done
