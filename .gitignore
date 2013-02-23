@@ -1,4 +1,10 @@
 .redcar
-.dot
-.html
-.png
+test/*.dot
+test/*.html
+test/*.css
+test/*.png
+
+dogfood/*.dot
+dogfood/*.html
+dogfood/*.css
+dogfood/*.png
