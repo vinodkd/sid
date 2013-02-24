@@ -154,7 +154,7 @@ module Sid
       # |     N           |       N               |   no action reqd
       # |     N           |       Y               |   suggest adding defns
       # |     Y           |       N               |   suggest adding decls
-      # |     N           |       N               |   confirm they match, then process the children
+      # |     Y           |       Y               |   confirm they match, then process the children
       to_build_found = root['to-build']
       components_declared = root[:has_components]
       root[:has_child_definitons] = (to_build_found)? true : false
@@ -171,9 +171,11 @@ module Sid
           child.each do |key,val|
             if !root[:new_components].has_key? key # this is not a declared component
               val ['suggestion']="#{key} component is not defined above. Should it be?"
-            end
             root[:new_components][key]=true
-            val = process_impl_details val
+            else
+              # this is a Y Y case
+              process_impl_details val
+            end
           end 
         end
         # now deal with components declared, but not defined
