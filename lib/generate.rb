@@ -10,6 +10,7 @@ module Sid
       setup "gen_root(root)",'sid.erb'
       setup "gen_features(root)","gen_features.erb"
       setup "gen_capabilities(root)","gen_capabilities.erb"
+      setup "gen_impl_details(root)", "gen_impl_details.erb"
       setup "gen_requires(root,ctx)","gen_requires.erb"
       setup "gen_defining_tasks(val,ctx)","gen_defining_tasks.erb"
       setup "gen_using(using,ctx)","gen_using.erb"

@@ -40,9 +40,7 @@ module Sid
 
       process_features root
       process_capabilities root
-      process_architecture_definition root
-      process_required_components root
-      process_child_components root
+      process_impl_details root
       return output
     end
     
@@ -76,6 +74,12 @@ module Sid
       
       root['capabilities']=with_capabilities  if with_capabilities
       root['capabilities']=and_capabilities if and_capabilities
+    end
+
+    def process_impl_details(root)
+      process_architecture_definition root
+      process_required_components root
+      process_child_components root
     end
 
     def process_required_components(root)
@@ -169,8 +173,7 @@ module Sid
               val ['suggestion']="#{key} component is not defined above. Should it be?"
             end
             root[:new_components][key]=true
-            # TODO: call Sid.process on them with child=true
-            process_required_components val
+            val = process_impl_details val
           end 
         end
         # now deal with components declared, but not defined

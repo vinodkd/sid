@@ -1,0 +1,5 @@
+<%=gen_requires root, root%>
+<%=gen_arch_lnk root%>
+<% if root[:has_child_definitons] %>
+	<%=gen_children root['to-build']%>
+<% end %>

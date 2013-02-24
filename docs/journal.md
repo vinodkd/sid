@@ -7,3 +7,29 @@ Journal
 - test5-6 always failed. I still dont know if that's a good thing.
 
 All of this is in the shadow of the "impending since 2 years for now" rewrite to version 2, which would be plugin-based heaven. My game plan right now is to either get it to work with children with some reasonable amount of effort, or to focus on the rewite instead. Ruby itself has changed quite a lot in the year(s) between - especially on YAML support that sid uses.
+
+Sun Feb 24 05:51:55 2013 : Sort of figured out how to get children generated in teh ast, but still trying to figure out how to get it to generate the html. fixed the ast generation by calling a Sid.new() but currently cheating by giving it a file to process anyway. this will break for others. refactored sid.erb to extract common logic out and put it in gen_impl_details.erb, but its not working yet.
+
+Sun Feb 24 06:25:58 2013 : still trying to figure out why the sub sid.new doesnt return output
+
+Sun Feb 24 11:51:48 2013 : figured it out. sid.new was not the right thing to call. the root doc has the structure
+	 root
+	 	/features
+	 	/capabilities
+	    /requires
+	    /realizing-architecture
+	    /to-build
+	    	/<<component name>>
+..while the components under the child `to-build` has the structure:
+
+	<<component name>>
+		/requires
+		/realizing-architecture.
+
+so the right thing to do was to call a subset of the process and generate logic. So I had to refactor out just the required bits into `process_impl_details()` and `gen_impl_details.erb`.
+
+The new impl seems to work for sid.arch. todos: 
+
+	- run bart on all the test arch files
+	- fix the arch diagram logic. This still works for the main architecture diagram alone
+	

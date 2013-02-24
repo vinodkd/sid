@@ -51,6 +51,8 @@ to-build: &sid
                 building:
                     - SidProcessor : a ruby class to match input elements/ypaths to plugins
                     - plugins: to process the input and annotate with suggestions/warnings and provide generation templates. the plugin therefore has two operations - a parse and a generate one.
+            realizing-architecture:
+                - SidProcessor calls plugins
         - generator:
                 requires:
                     building:
@@ -58,3 +60,6 @@ to-build: &sid
                         - sidarch2dot: an erb template that outputs the architecture steps as a graphviz dot file.
                         - dot2img: a component to convert dot file to svg/png
                         - SidReporter: report generation code to output the erb templates, combine them all into usable html
+                realizing-architecture:
+                    - sid2html calls sidarch2doc
+                    - sidarch2dot calls dot2img
