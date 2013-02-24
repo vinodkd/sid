@@ -32,4 +32,7 @@ The new impl seems to work for sid.arch. todos:
 
 	- run bart on all the test arch files
 	- fix the arch diagram logic. This still works for the main architecture diagram alone
-	
+
+Sun Feb 24 12:47:38 2013 : was trying to put a name for the main and sub to-build components so that the arch.png will have a unique suffix when the wife wanted me to be with her while she cooked.
+
+Sun Feb 24 14:14:05 2013 : just found an issue with the process logic: sid.rb:173-182 needs to treat the case where a component is refered to but not declared above separate from a declared component that might have implementation details. right now both are subsumed. will fix it after getting the gen code to work for arch images
