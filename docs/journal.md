@@ -29,10 +29,11 @@ Sun Feb 24 11:51:48 2013 : figured it out. sid.new was not the right thing to ca
 so the right thing to do was to call a subset of the process and generate logic. So I had to refactor out just the required bits into `process_impl_details()` and `gen_impl_details.erb`.
 
 The new impl seems to work for sid.arch. todos: 
-
 	- run bart on all the test arch files
 	- fix the arch diagram logic. This still works for the main architecture diagram alone
 
 Sun Feb 24 12:47:38 2013 : was trying to put a name for the main and sub to-build components so that the arch.png will have a unique suffix when the wife wanted me to be with her while she cooked.
 
 Sun Feb 24 14:14:05 2013 : just found an issue with the process logic: sid.rb:173-182 needs to treat the case where a component is refered to but not declared above separate from a declared component that might have implementation details. right now both are subsumed. will fix it after getting the gen code to work for arch images
+
+Sun Feb 24 15:45:10 2013 : fixed all issues with img creation as well as the process logic. Naming this version 1.5 because its not quite the rewrite that warrants a 2.0 tag; yet fixes a lot of issues and makes sid really usable now.
