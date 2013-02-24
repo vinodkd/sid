@@ -4,3 +4,4 @@ sid ./test6.arch	1
 sid ./test2.arch	0
 sid ./test3.arch	0
 sid ./test4.arch	0
+sid ../dogfood/sid.arch	0
