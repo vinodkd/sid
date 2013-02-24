@@ -1,7 +1,7 @@
 function set_testdata()
 {
   declare -a dirs
-  dirs=( . )
+  dirs=( . ../dogfood )
   local i=0
   for dir in ${dirs[*]}
   do
