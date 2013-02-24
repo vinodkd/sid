@@ -1,11 +1,10 @@
-<%if !root[:has_architecture]%>
 digraph G{
         node[shape=box style="rounded,filled" fontname=Sans fillcolor="#ccccff"]  //i'm terrible partial to to perrywinkle blue ;)
         //compound=true
         //rankdir=LR
         //outputMode=nodesfirst
         <%
-        arch = root['to-build']['realizing-architecture'] 
+        arch = root['realizing-architecture'] 
         
         layers = (arch.class == Hash and arch.has_key? 'layers') ? arch['layers'] : nil
         relations = (arch.class == Hash and arch.has_key? 'relations') ? arch['relations'] : arch
@@ -71,4 +70,3 @@ digraph G{
     <%=component1%> -> <%=component2%> [label="<%=relation%>",color=gray, fontname=Sans fontsize="10"]
       <%end if relations%>
 }
-<%end%>
