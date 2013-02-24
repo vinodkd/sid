@@ -16,6 +16,7 @@ def main
       sid = Sid::Sid.new sid_input
       input = sid.parse
       ast   = sid.process input
+      #puts ast.to_yaml
       sid.generate ast
       puts "done."
     rescue Exception => e
