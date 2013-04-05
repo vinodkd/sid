@@ -146,7 +146,6 @@ module Sid
 
     def process_arch_diagram(name,root)
       output_basename = File.basename(@input_file)
-      p output_basename
       root[:arch_ref] = @input_file.sub output_basename, "#{output_basename.split('.')[0]}_#{name}"
     end
     
