@@ -40,7 +40,7 @@ module Sid
 
       process_features root
       process_capabilities root
-      process_impl_details root
+      process_impl_details "root", root
       return output
     end
     
@@ -76,8 +76,8 @@ module Sid
       root['capabilities']=and_capabilities if and_capabilities
     end
 
-    def process_impl_details(root)
-      process_architecture_definition root
+    def process_impl_details(name, root)
+      process_architecture_definition name, root
       process_required_components root
       process_child_components root
     end
@@ -134,19 +134,20 @@ module Sid
       end
     end
     
-    def process_architecture_definition(root)
+    def process_architecture_definition(name,root)
       if !root['realizing-architecture']
         root[:has_architecture] = false
         root['realizing-architecture'] = [{'suggestion' => "add an architecture diagram using dot format"}] 
       else
         root[:has_architecture] = true
-        root[:arch_ref] = @input_file.sub @@FILE_SUFFIX,'.png'
-        process_arch_diagram root['realizing-architecture']
+        process_arch_diagram name, root
       end
     end
 
-    def process_arch_diagram(arch)
-      # nothing to do for now, but in future i could put in the nodes here as well
+    def process_arch_diagram(name,root)
+      output_basename = File.basename(@input_file)
+      p output_basename
+      root[:arch_ref] = @input_file.sub output_basename, "#{output_basename.split('.')[0]}_#{name}"
     end
     
     def process_child_components(root)
@@ -174,7 +175,7 @@ module Sid
             root[:new_components][key]=true
             else
               # this is a Y Y case
-              process_impl_details val
+              process_impl_details key, val
             end
           end 
         end
