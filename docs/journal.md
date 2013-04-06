@@ -37,6 +37,10 @@ Sun Feb 24 12:47:38 2013 : was trying to put a name for the main and sub to-buil
 Sun Feb 24 14:14:05 2013 : just found an issue with the process logic: sid.rb:173-182 needs to treat the case where a component is refered to but not declared above separate from a declared component that might have implementation details. right now both are subsumed. will fix it after getting the gen code to work for arch images
 
 Sun Feb 24 15:45:10 2013 : fixed all issues with img creation as well as the process logic. Naming this version 1.5 because its not quite the rewrite that warrants a 2.0 tag; yet fixes a lot of issues and makes sid really usable now.
+
 Sun Feb 24 17:32:10 2013 : Todo: figure out how best to organize documentation. The current gh-pages is out of sync with the recent changes and i dont see the point of continuing. maybe just keep the readme updated, keep the dogfood files out of gitignore and then point to the generated html should do it, methinks.
+
 Sat Apr  6 05:15:40 2013: Fixed the unique names for child architecture diagrams problem again. Dont know how that code got missed, but couldnt find it at all, so i rewrote that logic. Discovered it when I ran sid agains wordpic.
+
 New issue: Suggestions looks flaky. Sometimes no suggestions turn up. Other times it suggests to define a component that is already so. 
+	Fixed this. Somewhere during the process_impl_details development i must have moved the line that sets root[:new_components][key] to true into the wrong part of the if. Even though the setting applies to declared and defined components, the line was in the part of the if that checked for defined but not declared components. This caused the later code to show wrong suggestions.

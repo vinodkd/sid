@@ -171,13 +171,14 @@ module Sid
           child.each do |key,val|
             if !root[:new_components].has_key? key # this is not a declared component
               val ['suggestion']="#{key} component is not defined above. Should it be?"
-            root[:new_components][key]=true
             else
               # this is a Y Y case
+              root[:new_components][key]=true
               process_impl_details key, val
             end
           end 
         end
+
         # now deal with components declared, but not defined
         root[:new_components].each_pair() do |k,v|
           root['to-build'].push({"suggestion" =>"#{k} is declared, but not defined. Do you want to?"}) if !v
